@@ -1,0 +1,143 @@
+<div class="container-fluid mt-5">
+
+
+    <div class="row">
+
+
+        <div class="col-md-5">
+
+            <mat-card>
+
+                <mat-card-title>
+                    Nuevo Producto
+                </mat-card-title>
+
+                <mat-card-content>
+
+                    <form #form="ngForm" (ngSubmit)="RegistrarProducto(form)">
+                        <!-- <input type="hidden" name="id" [(ngModel)]="formulario._id"> -->
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Nombre del producto</mat-label>
+                                    <input type="text" matInput placeholder="Nombre del producto" name="producto" [(ngModel)]="formulario.producto" required>
+
+
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Bs.S</mat-label>
+                                    <input type="text" matInput placeholder="bsS" disabled name="bsS">
+
+
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-9">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Monto (Numerico)</mat-label>
+                                    <input type="number" matInput placeholder="Ingresa el costo del producto" name="monto" [(ngModel)]="formulario.monto">
+
+
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+
+                        <button class="btn-block" [disabled]="form.valid === false" mat-raised-button color="primary">Agregar Cliente</button  >
+
+
+                    </form>
+
+
+
+                </mat-card-content>
+                <mat-progress-bar mode="indeterminate" *ngIf="clickSubmit"></mat-progress-bar>
+
+            </mat-card>
+
+        </div>
+
+
+        <div class="col-md-7">
+
+            <mat-card>
+                <mat-card-title>
+                    Productos registrado
+
+                    <span class="example-spacer "></span>
+                    <div class="float-right">
+
+                        <input type="text" matInput placeholder="Buscar Producto" #buscar (keyup)="buscarProducto(buscar.value)">
+
+
+                    </div>
+                </mat-card-title>
+
+                <mat-card-content class="alto">
+
+                    <div class="scroll">
+                        <table class="table table ">
+
+
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Codigo Producto</th>
+
+                                    <th class="text-center">Nombre</th>
+
+                                    <th class="text-center">Monto</th>
+
+                                    <th class="text-center">Fecha de Creacion</th>
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+                                <h3 *ngIf="!existeCliente" class="text-center"> No existe el Producto solicitado </h3>
+                                <tr *ngFor="let producto of Productos" >
+                                    <td class="text-center" > {{ producto.codigoProducto  }} </td>
+
+                                    <td class="text-center"> {{ producto.producto}} </td>
+
+                                    <td class="text-center"> {{ producto.monto}} Bs.S </td>
+
+                                    <td class="text-center"> {{ producto.fechaCreacion | date: "short" }} </td>
+
+                                    <td>
+                                        <button mat-mini-fab color="primary" (click)="EliminarProducto(producto._id)" ><mat-icon>delete</mat-icon></button>
+                        </td>
+                        </tr>
+
+                        </tbody>
+
+
+
+                        </table>
+        </div>
+
+        </mat-card-content>
+        </mat-card>
+    </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</div>

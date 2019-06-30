@@ -1,0 +1,78 @@
+<div class="container mt-5">
+
+
+
+    <mat-card>
+        <mat-card-title>
+            Facturaciones
+
+            <span class="example-spacer "></span>
+            <div class="float-right">
+
+                <input type="text" matInput placeholder="Buscar Cliente" #buscar (keyup)="buscarCliente(buscar.value)">
+
+
+            </div>
+        </mat-card-title>
+
+        <mat-card-content>
+
+            <table class="table table ">
+
+
+                <thead>
+                    <tr>
+                        <th class="text-center">Codigo Factura</th>
+
+                        <th class="text-center">Cliente</th>
+
+                        <th class="text-center">Cedula</th>
+
+                        <th class="text-center">Fecha Creacion</th>
+
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+                    <h3 *ngIf="!existeFactura"> Cliente solicitado no existe </h3>
+
+                    <tr *ngFor="let factura of Facturas">
+                        <td class="text-center"> {{factura.codigoFactura}} </td>
+
+                        <td class="text-center"> {{factura.cliente}} </td>
+
+                        <td class="text-center"> {{factura.cedula}}</td>
+
+                        <td class="text-center"> {{factura.fechaCreacion | date: "short"}}</td>
+
+
+
+                        <td>
+                            <button mat-mini-fab color="primary" (click)="abrirDialog(factura._id)"><mat-icon>visibility</mat-icon></button>&nbsp;
+                            <button mat-mini-fab color="primary" (click)="EliminarFactura(factura._id)"><mat-icon>delete</mat-icon></button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+
+
+
+
+            </table>
+
+
+
+        </mat-card-content>
+    </mat-card>
+
+
+
+
+
+
+
+</div>

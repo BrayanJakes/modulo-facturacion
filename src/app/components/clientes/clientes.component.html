@@ -1,0 +1,185 @@
+<div class="container-fluid mt-5">
+
+
+    <div class="row">
+
+
+        <div class="col-md-5">
+
+            <mat-card>
+                <mat-card-title *ngIf="editandoCliente">
+                    Editando Cliente
+                </mat-card-title>
+
+                <mat-card-title *ngIf="!editandoCliente">
+                    Nuevo Cliente
+                </mat-card-title>
+
+                <mat-card-content>
+
+                    <form #form="ngForm" (ngSubmit)="RegistrarCliente(form)">
+                        <input type="hidden" name="id" [(ngModel)]="formulario._id">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Nombre Completo</mat-label>
+                                    <input type="text" matInput placeholder="Nombre completo" name="nombre" [(ngModel)]="formulario.nombre" required>
+
+
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+
+
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Cedula (Ejemplo: V-00000000)</mat-label>
+                                    <input type="text" matInput placeholder="Cedula" name="cedula" [disabled]="editandoCliente" [(ngModel)]="formulario.cedula">
+
+
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Edad</mat-label>
+                                    <input type="text" matInput placeholder="Edad" name="edad" [(ngModel)]="formulario.edad" #edad (keyup)="edad1 = edad.value" data-inputmask='"mask": "99"' data-mask>
+
+
+                                </mat-form-field>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Direccion local</mat-label>
+                                    <input type="text" name="direccion" [(ngModel)]="formulario.direccion" required matInput placeholder="Direccion local">
+
+
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Celular</mat-label>
+                                    <input type="text" matInput placeholder="Celular" name="celular" [(ngModel)]="formulario.celular" #celular (keyup)="celular1 = celular.value" data-inputmask='"mask": "(9999)-999-9999"' data-mask>
+
+
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Telefono (Opcional)</mat-label>
+                                    <input type="text" matInput placeholder="Telefono (Opcional)" name="telefono" [(ngModel)]="formulario.telefono" #telefono (keyup)="telefono1 = telefono.value" data-inputmask='"mask": "(9999)-999-9999"' data-mask>
+
+
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+
+                        <button *ngIf=" !editandoCliente " class="btn-block" [disabled]="form.valid === false" mat-raised-button color="primary">Agregar Cliente</button  >
+                        <button  *ngIf=" editandoCliente " class="btn-block" [disabled]="form.valid === false" mat-raised-button color="primary">Editar Cliente</button>
+
+                    </form>
+
+
+
+                </mat-card-content>
+
+                <mat-progress-bar mode="indeterminate" *ngIf="clickSubmit"></mat-progress-bar>
+
+            </mat-card>
+
+        </div>
+
+
+        <div class="col-md-7">
+
+            <mat-card>
+                <mat-card-title>
+                    Clientes registrado
+
+                    <span class="example-spacer "></span>
+                    <div class="float-right">
+
+                        <input type="text" matInput placeholder="Buscar Cliente" #buscar (keyup)="buscarCliente(buscar.value)">
+
+
+                    </div>
+                </mat-card-title>
+
+                <mat-card-content class="alto">
+
+                    <div class="scroll">
+                        <table class="table table ">
+
+
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+
+                                    <th>Cedula</th>
+
+                                    <th>Celular</th>
+
+                                    <th>Fecha de Creacion</th>
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+                                <h3 *ngIf="!existeCliente" class="text-center"> No existe el cliente </h3>
+                                <tr *ngFor="let cliente of clientes">
+                                    <td> {{cliente.nombre}} </td>
+
+                                    <td>{{cliente.cedula}}</td>
+
+                                    <td>{{cliente.celular}}</td>
+
+                                    <td>{{cliente.fechaCreacion | date: "short"}}</td>
+
+                                    <td>
+                                        <button mat-mini-fab color="primary" (click)="VerCliente(cliente._id)"><mat-icon>visibility</mat-icon></button> &nbsp;
+                                        <button mat-mini-fab color="primary" (click)="EditarCliente(cliente._id)"><mat-icon>create</mat-icon></button> &nbsp;
+                                        <button mat-mini-fab color="primary" (click)="EliminarCliente(cliente._id)"><mat-icon>delete</mat-icon></button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+
+
+                        </table>
+                    </div>
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+</div>

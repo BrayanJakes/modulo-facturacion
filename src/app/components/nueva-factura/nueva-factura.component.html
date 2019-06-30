@@ -1,0 +1,222 @@
+<h2>Nueva Solicitud</h2>
+<mat-horizontal-stepper linear #stepper>
+    <mat-step>
+        <form #form1="ngForm">
+            <ng-template matStepLabel>Selecciona un cliente (sino se encuentra puedes agregarlo en la seccion "Nuevo cliente")</ng-template>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline" class="texto">
+
+                        <mat-label>Ingresa la cedula y presiona Enter</mat-label>
+
+                        <input matInput placeholder="Ingresa la cedula del cliente" name="cedula" [(ngModel)]="nuevaFacturacion.cedula" #cedula (keyup.enter)="buscarCliente(cedula.value)">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field appearance="outline" class="texto">
+
+                        <mat-label>Cliente</mat-label>
+
+                        <input matInput disabled name="cliente" [(ngModel)]="nuevaFacturacion.cliente">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div>
+                <button mat-button (click)="buscarCliente(cedula.value)">Buscar Cliente</button>
+                <button mat-button matStepperNext [disabled]="nuevaFacturacion.cliente === ''">Siguiente</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <form #form2="ngForm">
+            <ng-template matStepLabel> Productos </ng-template>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline" class="texto">
+                        <mat-label>Ingresa el codigo del producto y presina enter</mat-label>
+
+                        <input type="number" [disabled]="Producto.producto !== ''" placeholder="Codigo del producto" value="1000" #codigo (keyup.enter)="buscarProducto(codigo.value)" matInput>
+
+
+                    </mat-form-field>
+
+                    <span *ngIf="Producto.producto !== ''">
+
+                    <mat-form-field  appearance="outline" class="texto">
+                        <mat-label>Producto</mat-label>
+
+                        <input type="text" disabled value="{{Producto.producto}}   |   {{Producto.monto}} Bs.S" matInput>
+
+                    </mat-form-field>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button mat-button (click)="agregarProducto(Producto)" >Agregar producto</button>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <button mat-button (click)="clear()" >Limpiar</button>
+                        </div>
+                    </div>
+
+                </span>
+
+                    <button mat-button *ngIf="Producto.producto === ''" (click)="buscarProducto(codigo.value)"></button>
+                </div>
+
+                <div class="col-md-8">
+                    <table class="table table ">
+
+
+                        <thead>
+                            <tr>
+                                <th class="text-center">Codigo Producto</th>
+
+                                <th class="text-center">Nombre</th>
+
+                                <th class="text-center">Monto</th>
+
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+                            <tr *ngFor="let producto of nuevaFacturacion.productos; let i = index">
+                                <td class="text-center"> {{producto.codigoProducto}} </td>
+
+                                <td class="text-center"> {{producto.producto}} </td>
+
+                                <td class="text-center"> {{producto.monto}} Bs.S </td>
+
+
+
+                                <td>
+                                    <button mat-mini-fab color="primary" (click)="borrarProducto(i)"><mat-icon>delete</mat-icon></button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                        <tfoot>
+                            <tr *ngIf="nuevaFacturacion.productos.length > 0">
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    Total Productos: {{ nuevaFacturacion.productos.length }}
+                                </td>
+                            </tr>
+                        </tfoot>
+
+
+
+                    </table>
+                </div>
+            </div>
+            <div>
+                <button mat-button matStepperPrevious>Regresar</button>
+                <button mat-button matStepperNext [disabled]="nuevaFacturacion.productos.length === 0">Siguiente</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <form #form3="ngForm">
+            <ng-template matStepLabel>Resumen Factura</ng-template>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Cliente</mat-label>
+                        <input matInput disabled type="text" [value]="cliente.nombre" required>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Cedula</mat-label>
+                        <input matInput disabled type="text" [value]="cliente.cedula" required>
+                    </mat-form-field>
+                </div>
+            </div>
+            <hr>
+            <mat-card>
+                <mat-card-title>
+                    Productos a comprar
+                </mat-card-title>
+
+                <mat-card-content>
+                    <table class="table table ">
+
+
+                        <thead>
+                            <tr>
+                                <th class="text-center">Codigo Producto</th>
+
+                                <th class="text-center">Nombre</th>
+
+                                <th class="text-center">Monto</th>
+
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+                            <tr *ngFor="let producto of nuevaFacturacion.productos; let i = index">
+                                <td class="text-center"> {{producto.codigoProducto}} </td>
+
+                                <td class="text-center"> {{producto.producto}} </td>
+
+                                <td class="text-center"> {{producto.monto}} Bs.S </td>
+
+                            </tr>
+
+                        </tbody>
+
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="text-center">
+                                    <strong>Total Productos:</strong> {{ nuevaFacturacion.productos.length }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="text-center">
+                                    <strong>Subtotal:</strong> {{ subtotalMonto }} Bs.S
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="text-center">
+                                    <strong>IVA 16%:</strong> {{ iva }} Bs.S
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="text-center">
+                                    <strong>Total:</strong> {{ TotalMonto }} Bs.S
+                                </td>
+                            </tr>
+                        </tfoot>
+
+
+
+                    </table>
+                </mat-card-content>
+            </mat-card>
+            <br>
+            <div class="text-right">
+                <button mat-button matStepperPrevious>Regresar</button>
+                <button mat-button matStepperPrevious (click)="cerrarModal($event)">Aceptar</button>
+                <mat-progress-bar mode="indeterminate" *ngIf="clickSubmit"></mat-progress-bar>
+
+            </div>
+        </form>
+    </mat-step>
+</mat-horizontal-stepper>

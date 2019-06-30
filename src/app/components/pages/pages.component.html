@@ -1,0 +1,52 @@
+<mat-toolbar color="primary"> <strong>F</strong>actuarion &nbsp;
+    <span> |
+            <button mat-button (click)="dashboard()">Dashboard </button>
+        </span>
+    <span> |
+    <button mat-button matTooltip="Crear una nueva solicitud"
+    matTooltipPosition="below" (click)="abrirModal()">Nueva facturacion </button>
+</span>
+
+    <span class="example-spacer"></span>
+
+    <button mat-button (click)="drawer.toggle()"> <mat-icon>home</mat-icon> </button>
+</mat-toolbar>
+
+
+<mat-drawer-container class="container-full" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="over">
+
+        <mat-list>
+
+            <h2>Facturacion</h2>
+
+            <div class="text-center">
+
+
+                <img class="rounded-circle" src="../../../assets/img/prueba.jpg" height="140" width="140">
+
+                <h6 class="mt-3">{{ nombre }}</h6>
+            </div>
+            <mat-divider></mat-divider>
+            <a mat-list-item class="cursor" (click)="drawer.toggle()" (click)="cliente()">
+                <mat-icon>person_add</mat-icon> &nbsp; Nuevo Cliente</a>
+            <a mat-list-item class="cursor" (click)="drawer.toggle()" (click)="producto()">
+                <mat-icon>add_circle</mat-icon> &nbsp; Nuevo Producto</a>
+            <mat-divider></mat-divider>
+            <a mat-list-item class="cursor" (click)="salir()">
+                <mat-icon>power_settings_new</mat-icon> &nbsp; Salir</a>
+
+
+
+        </mat-list>
+
+
+    </mat-drawer>
+
+
+
+    <div class="container-fluid mt-5">
+
+        <router-outlet></router-outlet>
+    </div>
+</mat-drawer-container>

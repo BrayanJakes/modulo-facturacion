@@ -1,0 +1,155 @@
+<app-toolbar></app-toolbar>
+
+
+<div class="container mt-5 ">
+    <h2 class="text-center">Modulo de Facturacion</h2>
+
+    <mat-card>
+        <mat-card-title>Registro</mat-card-title>
+
+        <mat-card-content>
+
+            <form #form="ngForm" (ngSubmit)="Registro(form)">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <mat-form-field>
+
+                            <input type="text" matInput placeholder="Nombre Completo" name="nombre" [(ngModel)]="form.value.nombre" required>
+
+
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+
+                    <div class="col-md-2">
+                        <mat-form-field>
+                            <mat-label>Inicial de tu cedula</mat-label>
+                            <mat-select name="initCedula" [(ngModel)]="form.value.initCedula">
+                                <mat-option value="V-">
+                                    V
+                                </mat-option>
+                                <mat-option value="E-">
+                                    E
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-md-4">
+                        <mat-form-field>
+
+                            <input type="text" matInput placeholder="Cedula" name="cedula" [(ngModel)]="form.value.cedula" #cedula (keyup)="cedula1 = cedula.value" data-inputmask='"mask": "99.999.999"' data-mask>
+
+
+                        </mat-form-field>
+                    </div>
+
+
+
+                    <div class="col-md-6">
+                        <mat-form-field>
+
+                            <input type="text" matInput placeholder="Edad" name="edad" [(ngModel)]="form.value.edad" #edad (keyup)="edad1 = edad.value" data-inputmask='"mask": "99"' data-mask>
+
+
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field>
+
+                            <input type="email" name="email" [(ngModel)]="form.value.email" required matInput placeholder="Email">
+
+
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field>
+
+                            <input type="email" name="email2" [(ngModel)]="form.value.email2" required matInput placeholder="Confirmar Email">
+
+
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field>
+
+                            <input type="text" name="direccion" [(ngModel)]="form.value.direccion" required matInput placeholder="Direccion local">
+
+
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field>
+
+                            <input type="text" matInput placeholder="Celular" name="celular" [(ngModel)]="form.value.celular" #celular (keyup)="celular1 = celular.value" data-inputmask='"mask": "(9999)-999-9999"' data-mask>
+
+
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field>
+
+                            <input type="text" matInput placeholder="Telefono (Opcional)" name="telefono" [(ngModel)]="form.value.telefono" #telefono (keyup)="telefono1 = telefono.value" data-inputmask='"mask": "(9999)-999-9999"' data-mask>
+
+
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field>
+
+                            <input type="password" name="clave" minlength="8" [(ngModel)]="form.value.clave" required matInput placeholder="Contraseña (minimo 8 caracter)">
+
+
+                        </mat-form-field>
+
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field>
+
+                            <input type="password" name="clave2" minlength="8" [(ngModel)]="form.value.clave2" required required matInput placeholder="Confirmar contraseña">
+
+
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <button class="btn-block" [disabled]="form.valid === false" mat-raised-button color="primary">Registrar</button>
+
+            </form>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+
+            <p class="text-center">Ya tienes cuenta? <a [routerLink]="['/login']">Click aqui</a></p>
+        </mat-card-actions>
+
+
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card>
+</div>
